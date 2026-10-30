@@ -50,3 +50,7 @@ input {
     border-radius: 20px;
     margin-bottom: 10px;
 }
+
+.nav-buttons{
+    display: flex;
+}
