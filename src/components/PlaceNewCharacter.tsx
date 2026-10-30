@@ -1,5 +1,6 @@
 import {Character} from "../types/RickAndMortyCharacter.ts";
 import {useNavigate} from "react-router-dom";
+import {type FormEvent} from "react";
 
 
 type PlaceNewCharacterProps = {
@@ -12,21 +13,22 @@ export default function PlaceNewCharacter(props:Readonly<PlaceNewCharacterProps>
     const nav = useNavigate();
 
 
-    function handleSubmit(event){
+    function handleSubmit(event:FormEvent<HTMLFormElement>){
         event.preventDefault()
-        const formData = new FormData(event.target)
+        const formData = new FormData(event.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
         console.log(props.characters)
 
         const newCharacter: Character = {
+            id: Math.floor(Math.random() * (1000 - 21 + 1)) + 21,
             name: data.name.toString(),
             status: data.status.toString()
         };
 
         props.characters.push(newCharacter)
 
-        props.setCharacters(props.characters)
-        event.target.reset;
+        props.setCharacters(props.characters);
+        (event.target as HTMLFormElement).reset();
         nav("/characters")
     }
 
